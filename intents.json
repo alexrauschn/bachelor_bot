@@ -1,42 +1,60 @@
-{"intents": [
-        {"tag": "greeting",
-         "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
-         "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
-         "context_set": ""
-        },
-        {"tag": "goodbye",
-         "patterns": ["Bye", "See you later", "Goodbye"],
-         "responses": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon."]
-        },
-        {"tag": "thanks",
-         "patterns": ["Thanks", "Thank you", "That's helpful"],
-         "responses": ["Happy to help!", "Any time!", "My pleasure"]
-        },
-        {"tag": "hours",
-         "patterns": ["What hours are you open?", "What are your hours?", "When are you open?" ],
-         "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
-        },
-        {"tag": "mopeds",
-         "patterns": ["Which mopeds do you have?", "What kinds of mopeds are there?", "What do you rent?" ],
-         "responses": ["We rent Yamaha, Piaggio and Vespa mopeds", "We have Piaggio, Vespa and Yamaha mopeds"]
-        },
-        {"tag": "payments",
-         "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Are you cash only?" ],
-         "responses": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards"]
-        },
-        {"tag": "opentoday",
-         "patterns": ["Are you open today?", "When do you open today?", "What are your hours today?"],
-         "responses": ["We're open every day from 9am-9pm", "Our hours are 9am-9pm every day"]
-        },
-        {"tag": "rental",
-         "patterns": ["Can we rent a moped?", "I'd like to rent a moped", "How does this work?" ],
-         "responses": ["Are you looking to rent today or later this week?"],
-         "context_set": "rentalday"
-        },
-        {"tag": "today",
-         "patterns": ["today"],
-         "responses": ["For rentals today please call 1-800-MYMOPED", "Same-day rentals please call 1-800-MYMOPED"],
-         "context_filter": "rentalday"
+{
+  "intents":
+  [
+    {
+      "tag": "gastgewerbe_indoor",
+      "patterns": ["indoor", " geschlossene Räume", "geschlossener Raum", "drinnen", "im Inneren", "innen", "sitzen", "essen", "Tisch"],
+      "responses": ["Ein Tisch darf aus maximal vier Personen zuzüglich bis zu 6 minderjährigen Kindern bestehen, wenn diese Personen nicht in einem gemeinsamen Haushalt leben (§6 (2) Z1)."]
+
+    },
+    {
+      "tag": " gastgewerbe_outdoor",
+      "patterns": ["outdoor", "out-door", "draußen", "draussen", "im Freien", "an der frischen Luft ", "außerhalb", "sitzen", "essen", "Tisch"],
+      "responses": ["Ein Tisch, der nicht in einem gemeinsamen Haushalt lebt, darf aus maximal zehn Personen zuzüglich bis zu zehn minderjährigen Kindern bestehen." ]
+    },
+    {
+      "tag": "gemeinsamer_haushalt",
+      "patterns": ["gemeinsamer Haushalt", "zusammen leben", "gemeinsam leben", "ein Haushalt", "zusammen Wohnen" ],
+      "responses": ["Für Personen die in einem Haushalt leben gelten die Beschränkungen auf eine Personenzahl nicht "]
+    },
+    {
+      "tag": "test_pcr",
+      "patterns": ["PCR-Test", "molekularbiologischer Test", "Gültigkeit", "Wie lange", "Gurgeltest", "PCR-Gurgeltest", "Gültigkeitsdauer", " Zutrittstests" ],
+      "responses": ["Mit einem negativer PCR-Test darf man 72 Stunden ein Gastgewerbe betreten"]
+    },
+    {
+      "tag": "berechtigung",
+      "patterns": ["Berechtigung", " notwendig", "braucht", "betreten", "Nachweisen", "Zutritt", "Wann", "wann", "hinein", "darf", "dürfen", "Gasthaus", "Restaurant", "Cafe"    ],
+      "responses": ["Der Kunde muss einen den Nachweis einer geringen epidemiologischen Gefahr erbringen, dh. Sie müssen Getestet, Genesen oder Geimpft sein"]
+    },
+
+    {
+      "tag": "test_antigen",
+      "patterns": ["Antigentest", "befugte Stelle", "Teststelle", "Gültigkeit", "Wie lange", "Testcenter", "Test-Center", "Teststraße", "Test Straße", "Gültigkeitsdauer"],
+      "responses": ["Mit einem negativer Antigentest darf man 48 Stunden ein Gastgewerbe betreten"]
+    },
+    {
+      "tag": "test_selbst",
+      "patterns": ["Selbsttest", " Antigentest", "Gültigkeit", "Wie lange", "behördliche Datenverarbeitung", "registrierter Test", "registrierter Selbsttest", "Gültigkeitsdauer"],
+      "responses": ["Mit einem behördlich erfassten negativen Selbsttest darf man 24 Stunden ein Gastgewerbe betreten"]
+    },
+    {
+      "tag": "test_betreiber",
+      "patterns": ["Kein Test", " ohne Test", "Test vor Ort", "Test ", "Selbsttest", "im Betrieb", "durch Betreiber", "von Betreiber"],
+      "responses": ["Sollte kein Test vorliegen kann ausnahmsweise ein Selbsttest unter Aufsicht des Betreibers durchgeführt werden, der für die Dauer des Aufenthalts gültig ist"]
+    },
+    {
+      "tag": "maske",
+      "patterns": ["Maskenpflicht", "Maske", "Masken tragen", " FFP2-Maske","zu trage", "tragen", "Aufhaben" ],
+      "responses": ["In geschlossenen Räumen besteht die Pflicht zum Tragen einer FFP2-Maske, außer am Tisch (Verabreichungsplatz)"]
+    },
+    {
+      "tag": "impfung_",
+      "patterns": ["Impfung", "Erstimpfung", "", "Wie lange", "Zweitimpfung", "Gültigkeit Impfung", "geimpft", "Zutritt", "erste Dosis", " zweite Dosis", "eine Dosis"],
+        "responses": ["Ab 22. Tag nach der Erstimpfung mit einem zweiteiligen Impfstoff berechtigt diese einen für 3 Monaten ab der ersten Impfung zum Zutritt zu einer Gaststätte, mit der Zweitimpfung für 9 Monate. Eine einteilige Impfung berechtigt ab dem 22. Tag für 9 Monate zum Zutritt."]
         }
-   ]
-}
+      ]
+    }
+
+
+

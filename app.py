@@ -14,9 +14,10 @@ def getAnswer():
 #TODO now implement the code that uses the question and return it later on
     print(question)
     answer = response(question)
-    if answer == "":
-        answer = "Sorry no idea what you're talking about, bruh"
-    json_answer = jsonify({'answer' : answer, 'link' : '§6 Abs(2) Z1'})
+    link = 'https://www.ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2021_II_214/BGBLA_2021_II_214.html'
+    probability = 2
+
+    json_answer = jsonify({'answer': answer, 'link': link, 'probability': probability})
     json_answer.headers.add("Access-Control-Allow-Origin", "*")
     return json_answer
 
