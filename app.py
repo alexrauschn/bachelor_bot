@@ -1,6 +1,11 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
 from model import classify, response
+
+
 app = Flask(__name__)
+CORS(app)
+
 
 @app.route('/question', methods=['POST'])
 def getAnswer():
@@ -11,7 +16,9 @@ def getAnswer():
     answer = response(question)
     if answer == "":
         answer = "Sorry no idea what you're talking about, bruh"
-    return jsonify({'most fitting answer ' : answer})
+    json_answer = jsonify({'answer' : answer, 'link' : '§6 Abs(2) Z1'})
+    json_answer.headers.add("Access-Control-Allow-Origin", "*")
+    return json_answer
 
 
 if __name__ == '__main__':
