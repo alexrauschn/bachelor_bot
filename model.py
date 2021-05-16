@@ -151,8 +151,24 @@ def response(sentence, userID='123', show_details=False):
                     return random.choice(i['responses']), i['link']
 
             results.pop(0)
+
+# to do:
+# tokenize items as is
+# use NLTK to process input
+# pass this pre-processed input to a quantification function
+# count matches between input and patterns
+# find good algorithm: percentage of patterns matched? total count?
+# add points for respective tag whenever it matches
+# at the end: list categories with most points
+# optional: point threshold?
+# give list with best matches
+
 print("\n----------\n")
 print(classify('is your shop open today?'))
 print("\n----------\n")
 
 response('is your shop open today?')
+
+# to do:
+# call expert system classification
+# compare the results
