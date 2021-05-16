@@ -336,3 +336,11 @@ pyvenv.cfg
 pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,venv,intellij
+
+model.tflearn.index
+
+model.tflearn.data-00000-of-00001
+
+training_data
+
+tflearn_logs/9QXZ0I/events.out.tfevents.1621156624.DESKTOP-2Q0BG0E
