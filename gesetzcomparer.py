@@ -4,7 +4,7 @@ import filecmp
 from bs4 import BeautifulSoup
 
 # get URL of live regulation
-# cut live URL to just contain the relevant passage
+# cut live file to just contain the relevant passage
 # cut local file to just contain the relevant passage
 # compare the two
 
