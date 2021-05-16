@@ -3,11 +3,10 @@ import requests
 import filecmp
 from bs4 import BeautifulSoup
 
-
-# 1. local txt laden
-# 2. url text laden
-# 3. comparen
-# 4. rückgabe 1 oder 0
+# get URL of live regulation
+# cut live URL to just contain the relevant passage
+# cut local file to just contain the relevant passage
+# compare the two
 
 # get the live file and write a local copy of the plain text
 def write_gastbewerbetext_to_file(filename, url):
