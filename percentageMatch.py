@@ -5,7 +5,7 @@ stemmer = LancasterStemmer()
 from model import words, classes, ignore_words
 from model import clean_up_sentence
 
-# import our chat-bot intents file
+# import our chat-bot's intents file
 import json
 with open('intents.json') as json_data:
     intents = json.load(json_data)
@@ -43,7 +43,6 @@ def tokenizeInput(question):
 # [n][3][0,1,2]: absolute, relative and combined rank
 
 
-
 # sort lists so they contain the tag, keywords and response in one row respectively...
 # response class uses a LIST, structure can be inferred by looking at that class...
 
@@ -56,6 +55,7 @@ def tokenizeInput(question):
 
 # step 1: tokenize and stem json word lists
 #   => this is already done; however, the format is not exactly what we need
+
 # step 2: convert this into a list of lists
 # okay, maybe...
 # HIER MUSS MAN DAS IRGENDWIE SO HINKRIEGEN DASS ER IN JEDER ZEILE EINEN NEUEN TAG HAT
@@ -63,7 +63,6 @@ def tokenizeInput(question):
 # dritte spalte dann anzahl übereinstimmungen absolut, vierte spalte relativ, fünfte rang absolut, sechste rang relativ, siebte rang gemischt
 # neue zeile = neues intent
 xp_list = []
-
 
 # https://blog.finxter.com/wp-content/uploads/2020/04/listoflist-768x432.jpg
 # liste 1: 7 einträge
