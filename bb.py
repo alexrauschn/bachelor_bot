@@ -1,25 +1,23 @@
+import csv
+
 # BAREBONES CHATBOT
-# intents:
+# get intents
+# read from csv
+datafile = open('intents.csv', 'r')
+datareader = csv.reader(datafile, delimiter=';')
+arrayIntents = []
+for row in datareader:
+    arrayIntents.append(row)
+
+# add information to start of each row
 # row 0 = first intent, row 1 = second intent...
 # position 0 = score, position 1 = score moderated by number of patterns, pos 2 = ranking by score,
 # pos 3 = ranking by moderated score, pos 4 = mixed ranking (used for output)
 # pos 5 = category name, pos 6 = answer, pos 7 - XXX = patterns
-arrayIntents = [
-[0.0, 0.0, 99.0, 99.0, 99.0, "gastgewerbe_indoor", "Ein Tisch darf aus maximal vier Personen zuzueglich bis zu 6 minderjaehrigen Kindern bestehen, wenn diese Personen nicht in einem gemeinsamen Haushalt leben.", "indoor", " geschlossene", "Raeume", "geschlossener", "Raum", "drinnen", "Inneren", "innen", "sitzen", "essen", "Tisch"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "gastgewerbe_outdoor", "Ein Tisch darf aus maximal zehn Personen zuzueglich bis zu zehn minderjaehrigen Kindern bestehen, wenn diese Personen nicht in einem gemeinsamen Haushalt lebt.", "outdoor", "out-door", "Biergarten", "draussen", "Freien", "frischen", "Luft ", "ausserhalb", "sitzen", "essen", "Tisch"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "gemeinsamer_haushalt", "Fuer Personen die in einem Haushalt leben gelten die Beschraenkungen auf eine Personenzahl nicht.", "gemeinsamer", "ein", "Haushalt", "zusammen", "gemeinsam", "leben", "ein Haushalt", "zusammen", "Wohnen", "zusammenwohnen"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "test_pcr", "Mit einem negativen PCR-Test darf man innerhalb von 72 Stunden ein Gastgewerbe betreten.", "PCR-Test", " molekularbiologischer Test", "Gueltigkeit", "gueltig", "Wielange", "lange", "Laenge", "Gurgeltest", "PCR-Gurgeltest", "Gueltigkeitsdauer", " Zutrittstest", "Zutrittstests"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "berechtigung", "Der Kunde muss einen den Nachweis einer geringen epidemiologischen Gefahr erbringen, dh. Sie muessen getestet, genesen oder geimpft sein.", "Berechtigung", " notwendig", "noetig", "braucht", "brauche", "betreten", "Nachweisen", "Zutritt", "Wann", "wann", "hinein", "darf", "duerfen", "Gasthaus", "Restaurant", "Cafe"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "test_antigen", "Mit einem negativem Antigentest einer Befugten stelle darf man innerhalb von 48 Stunden ein Gastgewerbe betreten)", "Antigentest", "befugte", "Stelle", "Teststelle", "Gueltigkeit", "Wielange", "lange", "Testcenter", "Test-Center", "Teststrasse", "Gueltigkeitsdauer"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "test_selbst", "Mit einem behoerdlich erfassten negativen Selbsttest darf man 24 Stunden ein Gastgewerbe betreten", "Selbsttest", " Antigentest", "Gueltigkeit", "lange", "behoerdliche", "Datenverarbeitung", "registrierter", "Test", "Selbsttest", "Gueltigkeitsdauer"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "test_betreiber", "Sollte kein Test vorliegen kann ausnahmsweise ein Selbsttest unter Aufsicht des Betreibers durchgefuehrt werden, der fuer die Dauer des Aufenthalts gueltig ist", "Kein", "Test", "ohne", "vor", "Ort", "Selbsttest", "im", "Betrieb", "durch", "Betreiber", "von"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "maske", "In geschlossenen Raeumen besteht die Pflicht zum Tragen einer FFP2-Maske, ausser am Tisch (Verabreichungsplatz)", "Maskenpflicht", "Maske", "Masken", "tragen", " FFP2-Maske", "aufhaben", "anhaben"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "genesen", "Eine ueberstandene Erkrankung an COVID-19 berechtigt zum Betreten eines Gastgewerbes, wenn diese nicht mehr als 6 Monate zurueck liegt und aerztlich oder durch einen Absonderungsbescheid bestaetigt ist, oder ein Nachweis ueber neutralisierte Antikoerper der nicht aelter als 3 Monate ist.", "Absonderungsbescheid", "aerztliche", "Bestaetigung", "Attest", "aerztliches", "Infektion", "ueberstanden", "genesen", "erkrankt", "Antikoerper", "Nachweis", "Erkrankung"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "abstand", "Zwischen Personen die nicht im selben Haushalt leben oder zu einer Besuchergruppe gehoeren muss ein Abstand von min. zwei Metern eingehalten werden. Der gleiche Abstand muss zwischen den Tischen verschiedener Besuchsgruppen bestehen.", "Abstand", "wieweit", "weg", "Entfernung", "Abstaende", "entfernt", "einhalten", "einzuhalten", "nahe", "Naehe"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "oeffnungszeit", "Falls keine anderen strengeren Beschraenkungen gelten duerfen zwischen 05:00 und 22:00 Kunden den Gastbetrieb betreten. Zwischen 22.00 und 05:00 ist auch das Abholen nur Lieferservices erlaubt.", "Oeffnungszeiten", "Oeffnungszeit", "offenhaben", "offen", "wielange", "geoeffnet ", "aufsperren", "Sperrstunde", "zusperren", "Abholung", "abholen", "Lieferservice", "Lieferdienst"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "essen", "Speisen und Getraenke duerfen grundsaetzlich nur im Sitzen konsumiert werden und es muss genuegend Abstand zu Ausgabestellen bestehen. Nur bei Imbiss- und Gastronomiestaende darf auch im Stehen konsumiert werden.", "Regeln", "Essen", "Vorschriften", "Speisen", "Getraenke", "Getraenk", "konsumieren", "konsumiert", "Konsum", "trinken", "essen", "gegessen", "wie", "sitzen", "sitzend", "stehend", "Tisch", "wo", "getrunken", "stehen", "Bar", "Tisch"],
-[0.0, 0.0, 99.0, 99.0, 99.0, "impfung_", "Ab 22. Tag nach der Erstimpfung mit einem zweiteiligen Impfstoff berechtigt diese einen fuer 3 Monaten ab der ersten Impfung zum Zutritt zu einer Gaststaette, mit der Zweitimpfung fuer 9 Monate. Eine einteilige Impfung berechtigt ab dem 22. Tag fuer 9 Monaete zum Zutritt.", "Erstimpfung", "wielange", "Zweitimpfung", "Gueltigkeit", "Impfung", "geimpft", "Zutritt", "Dosis", "Erstdosis"]
-]
+startStuffing = [0.0, 0.0, 99.0, 99.0, 99.0]
+for s in range(len(startStuffing)):
+    for j in range(len(arrayIntents)): # iterate through rows
+        arrayIntents[j].insert(0,startStuffing[s])
 
 # prepare question
 def prepareQuestion (questionToAsk):

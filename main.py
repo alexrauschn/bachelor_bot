@@ -132,8 +132,8 @@ def writeInfo(answerExpected, rankIntents, answerReceived):
 
 def safeLog(questionToAsk, classed, correctAnswer, percNN, timeDifferenceBuilding, numberOfEpochs, timeDifferenceAnswer, catBB, correctBB, percBB, timeDifferenceBarebones, differentAns, corrOne):
     # safe results into a file
-    vergleichsLog = open('log_perf.txt', 'a')
-    vergleichsLog.write("The question asked was: " + questionToAsk +
+    comparisonLog = open('log_perf.txt', 'a')
+    comparisonLog.write("The question asked was: " + questionToAsk +
                         "\nThe categorization via NN was " + classed + " - correct: " + correctAnswer +
                         ". Percentage match: " + percNN +
                         ". It took " + timeDifferenceBuilding + " milliseconds to train and build the NN model. "
@@ -142,7 +142,7 @@ def safeLog(questionToAsk, classed, correctAnswer, percNN, timeDifferenceBuildin
                         + catBB + " - correct: " + correctBB + ". Percentage match: " + percBB +
                         ". It took " + str(timeDifferenceBarebones) + " milliseconds to structure the BB data and answer the question.\n"
                         + differentAns + corrOne + "\n---------------------\n")
-    vergleichsLog.close()
+    comparisonLog.close()
 
 def answerLoop(questionToAsk, answerExpected):
     # neural network output
