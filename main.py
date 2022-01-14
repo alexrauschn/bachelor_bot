@@ -1,3 +1,7 @@
+# WAS IST MIT DEM GERMAN LANGUAGE STEMMING TOOL?
+
+
+
 # fix lowercase
 # fix puncutation
 # fix timer: https://stackoverflow.com/questions/85451/pythons-time-clock-vs-time-time-accuracy
@@ -21,13 +25,14 @@ import time
 from model import classify, response, numberOfEpochs, timeDifferenceBuilding
 from bb import getRankedIntents
 
-thesisMode = True
+thesisMode = False
 
 if thesisMode:
     questionToAsk = "Kann ich mit 5 Freunden draussen an einem Tisch im Biergarten sitzen?"
     answerExpected = "Ein Tisch darf aus maximal zehn Personen zuzueglich bis zu zehn minderjaehrigen Kindern bestehen, wenn diese Personen nicht in einem gemeinsamen Haushalt lebt."
 else:
     print("\n----------\n")
+    print("Note: Do not use umlauts or anything else of the like. ")
     questionToAsk = input("Please enter the question you want to ask: ")
 
 firstRun = False
@@ -234,6 +239,45 @@ arrayQuestions = [
         ["KANN ICH MIT 56 LEUTEN DRINNEN??? IM GESCHLOSSENEN RAUM SITZEN????",
                      "Ein Tisch darf aus maximal vier Personen zuzueglich bis zu 6 minderjaehrigen Kindern bestehen, wenn diese Personen nicht in einem gemeinsamen Haushalt leben."],
 ]
+
+# probeIntents = ["wurst", "kaese", "semmel"]
+probeArrayIntents = [["Wurst", "Kaese", "semmel"], ["wein", "weib", "gesang", "fassbar"]]
+probeSatz = "Ich rede hier von wurst, von kaese und von sowas. also halt doppel wurst und so. und halt gesang! nicht semmeln. unfassbar das alles"
+
+# convert array to lowercase
+for j in range(len(probeArrayIntents)):  # iterate through rows
+    for k in range(len(probeArrayIntents[j])):  # iterate through columns
+        if k >= 0:
+            probeArrayIntents[j][k] = probeArrayIntents[j][k].lower()
+# print(probeArrayIntents)
+
+# convert question to lowercase
+probeSatz = probeSatz.lower()
+# print(probeSatz)
+
+# convert question to list
+splitInputBETA = probeSatz.split()
+
+# remove word after "nicht"
+for i in range(len(splitInputBETA) - 1): # iterate through input
+    if (splitInputBETA[i] == "nicht"):
+        splitInputBETA.pop(i+1)
+
+# print(splitInputBETA)
+
+# convert list to string
+frageSatz = ""
+for i in splitInputBETA:
+    frageSatz += i + " "
+# print(frageSatz)
+
+# count matches
+for j in range(len(probeArrayIntents)): # iterate through intent rows
+    for k in range(len(probeArrayIntents[j])): # iterate through intent columns
+        if probeArrayIntents[j][k] in frageSatz:
+            print("An stelle " + str(j) + str(k) + " ist ein Match")
+            # score erhpehen hier
+
 
 if thesisMode:
     for i in range(len(arrayQuestions)):

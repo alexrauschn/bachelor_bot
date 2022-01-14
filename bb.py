@@ -19,34 +19,55 @@ for s in range(len(startStuffing)):
     for j in range(len(arrayIntents)): # iterate through rows
         arrayIntents[j].insert(0,startStuffing[s])
 
+# convert array to lowercase
+for j in range(len(arrayIntents)):  # iterate through rows
+    for k in range(len(arrayIntents[j])):  # iterate through columns
+        if k > 6:
+            arrayIntents[j][k] = arrayIntents[j][k].lower()
+# print(arrayIntents)
+
+
+
 # prepare question
 def prepareQuestion (questionToAsk):
 
-    splitInput = questionToAsk.split()
+    # convert question to lowercase
+    questionToAskLower = questionToAsk.lower()
 
-    for i in range(len(splitInput) - 1): # iterate through input
-        if (splitInput[i] == "nicht"):
-            splitInput.pop(i+1)
+    # convert question to list
+    splitEarly = questionToAskLower.split()
 
-    # remove duplicates
-    splitInput = list(dict.fromkeys(splitInput))
+    # remove word after "nicht"
+    for i in range(len(splitEarly) - 1):  # iterate through input
+        if (splitEarly[i] == "nicht"):
+            splitEarly.pop(i + 1)
+
+    # convert list to string
+    splitInput = ""
+    for i in splitEarly:
+        splitInput += i + " "
 
     return splitInput
 
 def getBBScore (splitInput):
     # get barebones score
-    for i in range(len(splitInput)): # iterate through input
-        for j in range(len(arrayIntents)): # iterate through rows
-            for k in range(len(arrayIntents[j])): # iterate through columns
-                if splitInput[i] == arrayIntents[j][k]:
-                    if k > 6:
-                        arrayIntents[j][0] = arrayIntents[j][0] + 1
+    for j in range(len(arrayIntents)):  # iterate through intent rows
+        for k in range(len(arrayIntents[j])):  # iterate through intent columns
+            if k > 6:
+                if arrayIntents[j][k] in splitInput:
+                    arrayIntents[j][0] = arrayIntents[j][0] + 1
+
+    # for i in range(len(splitInput)): # iterate through input
+    #     for j in range(len(arrayIntents)): # iterate through rows
+    #         for k in range(len(arrayIntents[j])): # iterate through columns
+    #             if splitInput[i] == arrayIntents[j][k]:
+    #                 if k > 6:
+    #                     arrayIntents[j][0] = arrayIntents[j][0] + 1
 
     # get score moderated by length
-    for i in range(len(splitInput)): # iterate through input
-        for j in range(len(arrayIntents)): # iterate through rows
-            # if arrayIntents[j][0] != 0: # otherwise division by zero
+    for j in range(len(arrayIntents)): # iterate through rows
             arrayIntents[j][1] = ((arrayIntents[j][0])/(len((arrayIntents[j])) - 7))
+
     return arrayIntents
 
 def rankByScore(regIntents, ref, trg):
