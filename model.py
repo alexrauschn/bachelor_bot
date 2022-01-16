@@ -22,7 +22,7 @@ with open('intents.json') as json_data:
     intents = json.load(json_data)
 
 # define number of epochs early on
-numberOfEpochs = 100
+numberOfEpochs = 1000
 
 # get time before any of the sophisticated chatbot operations are performed
 timeBefore_building = time.perf_counter() * 1000.0

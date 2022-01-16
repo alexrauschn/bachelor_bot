@@ -14,7 +14,8 @@ for row in datareader:
 # position 0 = score, position 1 = score moderated by number of patterns, pos 2 = ranking by score,
 # pos 3 = ranking by moderated score, pos 4 = mixed ranking (used for output)
 # pos 5 = category name, pos 6 = answer, pos 7 - XXX = patterns
-startStuffing = [0.0, 0.0, 99.0, 99.0, 99.0]
+
+startStuffing = [99.0, 99.0, 99.0, 0.0, 0.0]
 for s in range(len(startStuffing)):
     for j in range(len(arrayIntents)): # iterate through rows
         arrayIntents[j].insert(0,startStuffing[s])
@@ -24,9 +25,6 @@ for j in range(len(arrayIntents)):  # iterate through rows
     for k in range(len(arrayIntents[j])):  # iterate through columns
         if k > 6:
             arrayIntents[j][k] = arrayIntents[j][k].lower()
-# print(arrayIntents)
-
-
 
 # prepare question
 def prepareQuestion (questionToAsk):
@@ -50,23 +48,25 @@ def prepareQuestion (questionToAsk):
     return splitInput
 
 def getBBScore (splitInput):
+    # reset all scores and ranks to default (positions 0 - 4; 0.0, 0.0, 99.0, 99.0, 99.0)
+    for j in range(len(arrayIntents)):  # iterate through intent rows
+        arrayIntents[j][0] = 0.0
+        arrayIntents[j][1] = 0.0
+        arrayIntents[j][2] = 99.0
+        arrayIntents[j][3] = 99.0
+        arrayIntents[j][4] = 99.0
+
     # get barebones score
     for j in range(len(arrayIntents)):  # iterate through intent rows
         for k in range(len(arrayIntents[j])):  # iterate through intent columns
             if k > 6:
                 if arrayIntents[j][k] in splitInput:
                     arrayIntents[j][0] = arrayIntents[j][0] + 1
-
-    # for i in range(len(splitInput)): # iterate through input
-    #     for j in range(len(arrayIntents)): # iterate through rows
-    #         for k in range(len(arrayIntents[j])): # iterate through columns
-    #             if splitInput[i] == arrayIntents[j][k]:
-    #                 if k > 6:
-    #                     arrayIntents[j][0] = arrayIntents[j][0] + 1
+                    print("\nWort " + str(arrayIntents[j][k]) + " gefunden in Reihe " + str(j) + " an Stelle " + str(k) + ", ganze Zeile: " + str(arrayIntents[j]))
 
     # get score moderated by length
     for j in range(len(arrayIntents)): # iterate through rows
-            arrayIntents[j][1] = ((arrayIntents[j][0])/(len((arrayIntents[j])) - 7))
+            arrayIntents[j][1] = ((arrayIntents[j][0])/(len((arrayIntents[j])) - 8))
 
     return arrayIntents
 
@@ -104,7 +104,6 @@ def rankByScore(regIntents, ref, trg):
     return rankedIntents
 
 # get rank for regular score
-# https://stackoverflow.com/questions/20183069/how-to-sort-multidimensional-array-by-column
 def rankByRegScore (arrayIntents):
     rankIntents = rankByScore(arrayIntents, 0, 2)
     return rankIntents
